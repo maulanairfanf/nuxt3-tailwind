@@ -20,32 +20,6 @@ export const useBreeds = params => {
 	}
 }
 
-export const useBreedAsync = () => {
-	const {
-		data: breedList,
-		error: breedError,
-		pending: breedPending,
-	} = useAsyncData(
-		'breeds',
-		async () => {
-			const response = await fetch('https://api.thedogapi.com/v1/breeds')
-			if (!response.ok) {
-				throw new Error('Failed to fetch breeds')
-			}
-			return response.json()
-		},
-		{
-			immediate: true,
-		}
-	)
-
-	return {
-		breedList,
-		breedError,
-		breedPending,
-	}
-}
-
 export const useBreedDetails = id => {
 	const {
 		data: breed,
@@ -59,5 +33,23 @@ export const useBreedDetails = id => {
 		breedError,
 		breedPending,
 		fetchBreedDetails,
+	}
+}
+
+export const useBreedImages = (params = { limit: 10 }) => {
+	const {
+		data: breedImagesList,
+		error: breedImagesError,
+		pending: breedImagesPending,
+		execute: fetchBreedImages,
+	} = useFetch('https://api.thecatapi.com/v1/images/search', {
+		params,
+	})
+
+	return {
+		breedImagesList,
+		breedImagesError,
+		breedImagesPending,
+		fetchBreedImages,
 	}
 }

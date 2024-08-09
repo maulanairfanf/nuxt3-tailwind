@@ -45,28 +45,14 @@
 				<ul
 					class="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700"
 				>
-					<li>
+					<li v-for="(item, index) in data">
 						<NuxtLink
-							to="/"
-							class="block py-2 px-3 rounded text-white hover:text-blue-500"
+							:to="item.to"
+							class="block py-2 px-3 rounded hover:text-blue-300"
+							:class="isActive(item.to)"
+							prefetch
 						>
-							Home
-						</NuxtLink>
-					</li>
-					<li>
-						<NuxtLink
-							class="block py-2 px-3 rounded text-white hover:text-blue-500"
-							to="/breeds"
-						>
-							Breeds
-						</NuxtLink>
-					</li>
-					<li>
-						<NuxtLink
-							class="block py-2 px-3 rounded text-white hover:text-blue-500"
-							to="/state-breed"
-						>
-							State Breed
+							{{ item.text }}
 						</NuxtLink>
 					</li>
 				</ul>
@@ -74,5 +60,22 @@
 		</div>
 	</nav>
 </template>
-<script setup></script>
+<script setup>
+const data = [
+	{ text: 'Home', to: '/' },
+	{ text: 'Breeds', to: '/breeds' },
+	{ text: 'State Breed', to: '/state-breed' },
+	{ text: 'Gallery', to: '/gallery' },
+]
+
+const route = useRoute()
+
+const routePath = computed(() => {
+	return route.path
+})
+
+const isActive = payload => {
+	return routePath.value === payload ? 'text-blue-500' : 'text-white'
+}
+</script>
 <style lang=""></style>
