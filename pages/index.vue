@@ -27,13 +27,6 @@
 				<p>Watch Data Input Value</p>
 				<p>{{ watchValue }}</p>
 			</div>
-			<div class="p-4 border">
-				<button @click="showModal = true" class="button-primary">
-					Toggle Modals
-				</button>
-
-				<LazyModal v-if="showModal" @close="showModal = false" />
-			</div>
 		</div>
 	</div>
 </template>
@@ -42,8 +35,6 @@
 definePageMeta({
 	layout: 'default',
 })
-const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
-
 const { countdown, isRunning, startCountdown } = useCountdown(5)
 const { formatCurrency } = useCurrency()
 
