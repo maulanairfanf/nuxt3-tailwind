@@ -45,6 +45,7 @@ const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
 
 const { countdown, isRunning, startCountdown } = useCountdown(5)
 const { formatCurrency } = useCurrency()
+const showModal = ref(false)
 
 const inputValue = ref('')
 const watchValue = ref('')
