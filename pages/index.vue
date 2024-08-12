@@ -27,29 +27,40 @@
 				<p>Watch Data Input Value</p>
 				<p>{{ watchValue }}</p>
 			</div>
+			<div class="p-4 border">
+				<button @click="showModal = true" class="button-primary">
+					Toggle Modals
+				</button>
+
+				<LazyModal v-if="showModal" @close="showModal = false" />
+			</div>
 		</div>
 	</div>
+
+	<script setup>
+		definePageMeta({
+			layout: 'default',
+		})
+		const LazyModal = defineAsyncComponent(() =>
+			import('@/components/Modal.vue')
+		)
+
+		const { countdown, isRunning, startCountdown } = useCountdown(5)
+		const { formatCurrency } = useCurrency()
+
+		const inputValue = ref('')
+		const watchValue = ref('')
+
+		const capitalizedInput = computed(() => {
+			return inputValue.value.toUpperCase()
+		})
+
+		watch(
+			inputValue,
+			(newValue, oldValue) => {
+				watchValue.value = newValue
+			},
+			{ once: false }
+		)
+	</script>
 </template>
-
-<script setup>
-definePageMeta({
-	layout: 'default',
-})
-const { countdown, isRunning, startCountdown } = useCountdown(5)
-const { formatCurrency } = useCurrency()
-
-const inputValue = ref('')
-const watchValue = ref('')
-
-const capitalizedInput = computed(() => {
-	return inputValue.value.toUpperCase()
-})
-
-watch(
-	inputValue,
-	(newValue, oldValue) => {
-		watchValue.value = newValue
-	},
-	{ once: false }
-)
-</script>
