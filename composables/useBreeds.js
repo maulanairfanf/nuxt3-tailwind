@@ -10,6 +10,8 @@ export const useBreeds = params => {
 		params,
 	})
 
+	const breedListState = useState('breedList', () => [])
+
 	return {
 		breedList,
 		breedError,
@@ -24,10 +26,7 @@ export const useBreedDetails = id => {
 		error: breedError,
 		pending: breedPending,
 		execute: fetchBreedDetails,
-	} = useFetch(`https://api.thedogapi.com/v1/breeds/${id}`, {
-		lazy: true,
-		immediate: false,
-	})
+	} = useFetch(`https://api.thedogapi.com/v1/breeds/${id}`)
 
 	return {
 		breed,

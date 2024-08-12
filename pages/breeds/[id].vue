@@ -10,13 +10,8 @@
 
 <script setup>
 const route = useRoute()
+const breedId = route.params.id
 
-const breedId = computed(() => {
-	return route.params.id
-})
-
-const { breed, breedError, breedPending, fetchBreedDetails } = useBreedDetails(
-	breedId.value
-)
-fetchBreedDetails()
+const { breed, breedError, breedPending, fetchBreedDetails } =
+	useBreedDetails(breedId)
 </script>

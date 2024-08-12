@@ -50,6 +50,7 @@
 							:to="item.to"
 							class="block py-2 px-3 rounded hover:text-blue-300"
 							:class="isActive(item.to)"
+							prefetch
 						>
 							{{ item.text }}
 						</NuxtLink>

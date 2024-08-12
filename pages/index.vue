@@ -32,25 +32,23 @@
 					Toggle Modals
 				</button>
 
-				<Modal v-if="showModal" @close="showModal = false" />
+				<LazyModal v-if="showModal" @close="showModal = false" />
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import Modal from '@/components/Modal.vue'
 definePageMeta({
 	layout: 'default',
 })
-// const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
+const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
 
 const { countdown, isRunning, startCountdown } = useCountdown(5)
 const { formatCurrency } = useCurrency()
 
 const inputValue = ref('')
 const watchValue = ref('')
-const showModal = ref(false)
 
 const capitalizedInput = computed(() => {
 	return inputValue.value.toUpperCase()

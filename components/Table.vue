@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+		<table
+			class="w-full text-sm text-left rtl:text-right text-gray-500"
+			v-if="data.length > 0"
+		>
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 				<tr>
 					<th v-for="header in headers" :key="header.key" class="px-6 py-3">
