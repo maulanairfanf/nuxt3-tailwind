@@ -3,12 +3,10 @@
 		<div v-if="breedImagesPending">Loading..</div>
 		<div v-else-if="breedImagesError">{{ breedImagesError }}</div>
 		<div v-for="(item, index) in breedImagesList" :key="index">
-			<NuxtImg
-				class="rounded-lg w-full fit min-h-96 object-cover"
-				:src="item.url"
+			<img class="rounded-lg w-full fit min-h-96 object-cover" />
+			<!-- :src="item.url"
 				:alt="item.id"
-				loading="lazy"
-			/>
+				loading="lazy" -->
 		</div>
 	</div>
 </template>
