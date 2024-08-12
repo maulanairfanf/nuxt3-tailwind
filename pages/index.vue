@@ -36,31 +36,28 @@
 			</div>
 		</div>
 	</div>
-
-	<script setup>
-		definePageMeta({
-			layout: 'default',
-		})
-		const LazyModal = defineAsyncComponent(() =>
-			import('@/components/Modal.vue')
-		)
-
-		const { countdown, isRunning, startCountdown } = useCountdown(5)
-		const { formatCurrency } = useCurrency()
-
-		const inputValue = ref('')
-		const watchValue = ref('')
-
-		const capitalizedInput = computed(() => {
-			return inputValue.value.toUpperCase()
-		})
-
-		watch(
-			inputValue,
-			(newValue, oldValue) => {
-				watchValue.value = newValue
-			},
-			{ once: false }
-		)
-	</script>
 </template>
+<script setup>
+definePageMeta({
+	layout: 'default',
+})
+const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
+
+const { countdown, isRunning, startCountdown } = useCountdown(5)
+const { formatCurrency } = useCurrency()
+
+const inputValue = ref('')
+const watchValue = ref('')
+
+const capitalizedInput = computed(() => {
+	return inputValue.value.toUpperCase()
+})
+
+watch(
+	inputValue,
+	(newValue, oldValue) => {
+		watchValue.value = newValue
+	},
+	{ once: false }
+)
+</script>
