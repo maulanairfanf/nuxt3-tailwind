@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import Modal from '@/components/modal'
+import Modal from '@/components/Modal.vue'
 definePageMeta({
 	layout: 'default',
 })
