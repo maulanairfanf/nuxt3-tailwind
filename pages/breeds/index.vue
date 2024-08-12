@@ -1,7 +1,7 @@
 <template>
 	<div class="relative overflow-x-auto container mx-auto mt-10">
-		<div v-if="breedPending">Loading...</div>
-
+		<div v-if="breedPending">Loading..</div>
+		<div v-else-if="breedError">{{ breedError }}</div>
 		<Table
 			v-else
 			:headers="headers"
@@ -22,7 +22,7 @@ import Table from '~/components/Table.vue'
 const page = ref(0)
 const limit = ref(10)
 
-const { breedList, breedPending, fetchBreeds } = useBreeds({
+const { breedList, breedError, breedPending, fetchBreeds } = useBreeds({
 	page: page,
 	limit: limit,
 })
