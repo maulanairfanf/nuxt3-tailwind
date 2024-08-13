@@ -1,7 +1,7 @@
 <template>
 	<div class="container mx-auto">
 		<div class="mt-10 flex flex-col items-center justify-center">
-			<SStepper
+			<Stepper
 				:steps="steps"
 				:currentStep="currentStep"
 				textColor="text-gray-500"
@@ -23,7 +23,7 @@
 						<p>Review and confirm your information.</p>
 					</div>
 				</template>
-			</SStepper>
+			</Stepper>
 			<div class="flex gap-2 mt-10">
 				<button class="button-primary" @click="prevStep">Prev Step</button>
 				<button class="button-primary" @click="nextStep">Next Step</button>
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import SStepper from '@/components/Stepper/SStepper.vue'
+import Stepper from '@/components/Stepper.vue'
 
 const steps = ['Personal Info', 'Account Info', 'Confirmation']
 const currentStep = ref(0)

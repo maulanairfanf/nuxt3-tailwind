@@ -1,117 +1,83 @@
 <template>
-	<div>
-		<ol
-			:class="[
-				'flex items-center w-full font-medium text-center',
-				textColor,
-				sizeClass,
-			]"
+	<nav class="bg-gray-900 border-gray-200">
+		<div
+			class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
 		>
-			<li
-				v-for="(step, index) in steps"
-				:key="index"
-				:class="[
-					'flex items-center',
-					index < steps.length - 1 ? 'md:w-full' : '',
-					index === currentStep ? activeColor : '',
-					index < currentStep ? completedColor : '',
-					index < steps.length - 1
-						? 'after:w-full after:h-1 after:border-b after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10'
-						: '',
-				]"
+			<a
+				href="https://flowbite.com/"
+				class="flex items-center space-x-3 rtl:space-x-reverse"
 			>
+				<img
+					src="https://flowbite.com/docs/images/logo.svg"
+					class="h-8"
+					alt="Flowbite Logo"
+				/>
 				<span
-					:class="[
-						'flex items-center',
-						index < steps.length - 1
-							? 'after:content-[\'/\'] sm:after:hidden after:mx-2 after:text-gray-200'
-							: '',
-					]"
+					class="self-center text-2xl font-semibold whitespace-nowrap text-white"
+					>Flowbite</span
 				>
-					<template v-if="index < currentStep">
-						<svg
-							:class="iconSizeClass"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
+			</a>
+			<button
+				data-collapse-toggle="navbar-default"
+				type="button"
+				class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600"
+				aria-controls="navbar-default"
+				aria-expanded="false"
+			>
+				<span class="sr-only">Open main menu</span>
+				<svg
+					class="w-5 h-5"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 17 14"
+				>
+					<path
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M1 1h15M1 7h15M1 13h15"
+					/>
+				</svg>
+			</button>
+			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
+				<ul
+					class="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700"
+				>
+					<li v-for="(item, index) in data">
+						<NuxtLink
+							:to="item.to"
+							class="block py-2 px-3 rounded hover:text-blue-300"
+							:class="isActive(item.to)"
+							prefetch
 						>
-							<path
-								d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
-							/>
-						</svg>
-					</template>
-					<template v-else>
-						<span class="me-2">{{ index + 1 }}</span>
-					</template>
-					<span>{{ step }}</span>
-				</span>
-			</li>
-		</ol>
-		<div v-if="$slots.default">
-			<slot :currentStep="currentStep"></slot>
+							{{ item.text }}
+						</NuxtLink>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
+	</nav>
 </template>
-
 <script setup>
-import { computed } from 'vue'
-import { defineProps } from 'vue'
+const data = [
+	{ text: 'Home', to: '/' },
+	{ text: 'Breeds', to: '/breeds' },
+	{ text: 'State Breed', to: '/state-breed' },
+	{ text: 'Gallery', to: '/gallery' },
+	{ text: 'Stepper', to: '/stepper' },
+	{ text: 'Dropdown', to: '/dropdown' },
+]
 
-const props = defineProps({
-	steps: {
-		type: Array,
-		required: true,
-	},
-	currentStep: {
-		type: Number,
-		required: true,
-	},
-	textColor: {
-		type: String,
-		default: 'text-gray-500',
-	},
-	activeColor: {
-		type: String,
-		default: 'text-blue-600',
-	},
-	completedColor: {
-		type: String,
-		default: 'text-blue-600',
-	},
-	size: {
-		type: String,
-		default: 'md', // Can be 'sm', 'md', 'lg'
-	},
+const route = useRoute()
+
+const routePath = computed(() => {
+	return route.path
 })
 
-const sizeClass = computed(() => {
-	switch (props.size) {
-		case 'sm':
-			return 'text-xs sm:text-sm'
-		case 'md':
-			return 'text-sm sm:text-base'
-		case 'lg':
-			return 'text-lg sm:text-xl'
-		default:
-			return 'text-sm sm:text-base'
-	}
-})
-
-const iconSizeClass = computed(() => {
-	switch (props.size) {
-		case 'sm':
-			return 'w-3.5 h-3.5 sm:w-4 sm:h-4'
-		case 'md':
-			return 'w-4 h-4 sm:w-5 sm:h-5'
-		case 'lg':
-			return 'w-5 h-5 sm:w-6 sm:h-6'
-		default:
-			return 'w-4 h-4 sm:w-5 sm:h-5'
-	}
-})
+const isActive = payload => {
+	return routePath.value === payload ? 'text-blue-500' : 'text-white'
+}
 </script>
-
-<style scoped>
-/* Custom styling if needed */
-</style>
+<style lang=""></style>
