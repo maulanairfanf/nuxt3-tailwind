@@ -1,5 +1,7 @@
 <template>
-	<div class="container mx-auto flex justify-center items-center h-screen">
+	<div
+		class="container mx-auto flex flex-col justify-center items-center h-screen"
+	>
 		<div class="grid md:grid-cols-4 place-items-center gap-4">
 			<div class="p-4 border">
 				<button
@@ -41,6 +43,7 @@
 definePageMeta({
 	layout: 'default',
 })
+
 const LazyModal = defineAsyncComponent(() => import('@/components/Modal.vue'))
 
 const { countdown, isRunning, startCountdown } = useCountdown(5)

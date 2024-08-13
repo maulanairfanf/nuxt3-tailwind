@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="w-full">
 		<ol
 			:class="[
 				'flex items-center w-full font-medium text-center',
